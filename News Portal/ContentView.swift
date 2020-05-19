@@ -32,7 +32,7 @@ struct dataType : Identifiable {
     
 }
 
-class getDate : ObservedObject{
+class getDate : ObservableObject{
     
     @Published var datas = [dataType]()
     
@@ -46,7 +46,7 @@ class getDate : ObservedObject{
         
         session.dataTask(with: url) { (data, _, err) in
             
-            if Err != nil{
+            if err != nil{
                 
                 print((err?.localizedDescription)!)
                 return
@@ -57,7 +57,14 @@ class getDate : ObservedObject{
             
             for i in json["articles"]{
                 
-                let title =
+                let title = i.1["title"].stringValue
+                let description = i.1["description"].stringValue
+                let url = i.1["url"].stringValue
+                let image = i.1["urlToImage"].stringValue
+                let id = i.1["publishedAt"].stringValue
+                
+                self.datas.append(dataType(id: id, title: title, desc: description, url: url, image: image))
+                
                 
                 
             }
