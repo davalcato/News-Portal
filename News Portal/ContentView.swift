@@ -11,8 +11,28 @@ import SwiftyJSON
 import SDWebImageSwiftUI
 
 struct ContentView: View {
+    
+    @ObservedObject var list = getData()
+    
     var body: some View {
-        Text("Hello, World!")
+        
+        NavigationView{
+            
+            List(list.datas){i in
+                
+                HStack(spacing: 15){
+                    
+                    VStack(alignment: .leading, spacing: 10){
+                        
+                        Text(i.title).fontWeight(.heavy)
+                        Text(i.desc)
+                        
+                    }
+                    
+                    WebImage(url: URL(string: i.image)!, options: .highPriority, context: nil)
+                }
+            }
+        }
     }
 }
 
@@ -32,7 +52,7 @@ struct dataType : Identifiable {
     
 }
 
-class getDate : ObservableObject{
+class getData : ObservableObject{
     
     @Published var datas = [dataType]()
     
