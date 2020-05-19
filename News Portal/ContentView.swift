@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+import SwiftyJSON
+import SDWebImageSwiftUI
 
 struct ContentView: View {
     var body: some View {
@@ -19,3 +21,24 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
+struct dataType : Identifiable {
+    
+    var id : String
+    var title : String
+    var desc : String
+    var url : String
+    var image : String
+    
+}
+
+class getDate : ObservedObject{
+    
+    @Published var datas = [dataType]()
+    
+    
+}
+
+// This is where we generate an API in News API.
+
+
