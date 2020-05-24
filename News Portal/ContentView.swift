@@ -70,7 +70,7 @@ class getData : ObservableObject{
     
     init() {
         
-        let source = "http://newsapi.org/v2/everything?q=bitcoin&from=2020-04-24&sortBy=publishedAt&apiKey=60f8409fa20b4a5ea3a54ee3d1f229e9"
+        let source = "http://newsapi.org/v2/everything?sources=bbc-news&apiKey=60f8409fa20b4a5ea3a54ee3d1f229e9"
         
         let url = URL (string: source)!
         
