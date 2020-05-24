@@ -25,11 +25,13 @@ struct ContentView: View {
                     VStack(alignment: .leading, spacing: 10){
                         
                         Text(i.title).fontWeight(.heavy)
-                        Text(i.desc)
+                        Text(i.desc).lineLimit(2)
                     }
                     
-                    WebImage(url: URL(string: i.image)!, options: .highPriority, context: nil).frame(width: 110, height: 135).cornerRadius(20)
-                    
+                    if i.image != ""{
+                        
+                        WebImage(url: URL(string: i.image)!, options: .highPriority, context: nil).frame(width: 110, height: 135).cornerRadius(20)
+                    }
                     
                 }.padding(.vertical, 15)
             }.navigationBarTitle("Headlines")
