@@ -26,12 +26,13 @@ struct ContentView: View {
                         
                         Text(i.title).fontWeight(.heavy)
                         Text(i.desc)
-                        
                     }
                     
-                    WebImage(url: URL(string: i.image)!, options: .highPriority, context: nil)
-                }
-            }
+                    WebImage(url: URL(string: i.image)!, options: .highPriority, context: nil).frame(width: 110, height: 135).cornerRadius(20)
+                    
+                    
+                }.padding(.vertical, 15)
+            }.navigationBarTitle("Headlines")
         }
     }
 }
@@ -58,7 +59,7 @@ class getData : ObservableObject{
     
     init() {
         
-        let source = "http://newsapi.org/v2/everything?q=bitcoin&from=2020-04-19&sortBy=publishedAt&apiKey=60f8409fa20b4a5ea3a54ee3d1f229e9"
+        let source = "http://newsapi.org/v2/everything?q=bitcoin&from=2020-04-24&sortBy=publishedAt&apiKey=60f8409fa20b4a5ea3a54ee3d1f229e9"
         
         let url = URL (string: source)!
         
@@ -83,12 +84,14 @@ class getData : ObservableObject{
                 let image = i.1["urlToImage"].stringValue
                 let id = i.1["publishedAt"].stringValue
                 
-                self.datas.append(dataType(id: id, title: title, desc: description, url: url, image: image))
-                
-                
+                DispatchQueue.main.async {
+                    
+                    self.datas.append(dataType(id: id, title: title, desc: description, url: url, image: image))
+                    
+                }
                 
             }
-        }
+        }.resume()
     }
 }
 
