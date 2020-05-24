@@ -9,6 +9,7 @@
 import SwiftUI
 import SwiftyJSON
 import SDWebImageSwiftUI
+import WebKit
 
 struct ContentView: View {
     
@@ -20,20 +21,28 @@ struct ContentView: View {
             
             List(list.datas){i in
                 
-                HStack(spacing: 15){
+                NavigationLink(destination:
                     
-                    VStack(alignment: .leading, spacing: 10){
+                webView(url: i.url)
+                    .navigationBarTitle("",displayMode: .inline)) {
+                    
+                    HStack(spacing: 15){
                         
-                        Text(i.title).fontWeight(.heavy)
-                        Text(i.desc).lineLimit(2)
-                    }
-                    
-                    if i.image != ""{
+                        VStack(alignment: .leading, spacing: 10){
+                            
+                            Text(i.title).fontWeight(.heavy)
+                            Text(i.desc).lineLimit(2)
+                        }
                         
-                        WebImage(url: URL(string: i.image)!, options: .highPriority, context: nil).frame(width: 110, height: 135).cornerRadius(20)
-                    }
+                        if i.image != ""{
+                            
+                            WebImage(url: URL(string: i.image)!, options: .highPriority, context: nil).frame(width: 110, height: 135).cornerRadius(20)
+                        }
+                        
+                    }.padding(.vertical, 15)
                     
-                }.padding(.vertical, 15)
+                }
+                
             }.navigationBarTitle("Headlines")
         }
     }
@@ -97,6 +106,24 @@ class getData : ObservableObject{
     }
 }
 
-// This is where we generate an API in News API.
+struct webView : UIViewRepresentable {
+    
+    var url : String
+    
+    func makeUIView(context: UIViewRepresentableContext<webView>) -> WKWebView {
+        
+        let view = WKWebView()
+        view.load(URLRequest(url: URL(string: url)!))
+        return view
+    }
+    
+    func updateUIView(_ uiView: WKWebView, context: UIViewRepresentableContext<webView>) {
+        
+        
+    }
+    
+}
 
+// This is where we generate an API in News API.
+// Here's where you can change of the headlines based on the country...
 
